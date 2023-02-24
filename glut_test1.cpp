@@ -19,6 +19,58 @@ void setPixel(GLint x, GLint y)
 	glEnd();
 }
 
+void bresnhamLine2(int x1, int y1, int x2, int y2)
+{
+int dx = x2 - x1;
+int dy = y1-y2;
+int m = dy / dx;
+int x = x1;
+int y = y1;
+glVertex2f(x, y);
+if (m < 1)
+{
+int p = 2 * dy - dx;
+for (int k = 0; k < abs(dx); k++)
+{
+if (p < 0)
+{
+x = x + 1;
+y = y;
+glVertex2f(x, y);
+p = p + 2 * dy;
+}
+else
+{
+x = x + 1;
+y = y - 1;
+glVertex2f(x, y);
+p = p + 2 * dy - 2 * dx;
+}
+}
+}
+else
+{
+int p = 2 * dx - dy;
+for (int k = 0; k < abs(dy); k++)
+{
+if (p < 0)
+{
+x = x;
+y = y - 1;
+glVertex2f(x, y);
+p = p + 2 * dx;
+}
+else
+{
+x = x + 1;
+y = y - 1;
+glVertex2f(x, y);
+p = p + 2 * dx - 2 * dy;
+}
+}
+}
+}
+
 void ellipseMidPoint(int rx, int ry, int xCenter, int yCenter)
 {
 	//plotting first region	
